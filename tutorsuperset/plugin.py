@@ -17,7 +17,7 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         # Each new setting is a pair: (setting_name, default_value).
         # Prefix your setting names with 'SUPERSET_'.
         ("SUPERSET_VERSION", __version__),
-        ("SUPERSET_TAG", "latest-dev"),
+        ("SUPERSET_TAG", "2.0.1"),
         ("SUPERSET_HOST", "{{ LMS_HOST }}"),
         ("SUPERSET_PORT", "8088"),
         # TODO: use our mysql database instead?
@@ -36,7 +36,6 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         # This admin account is unusable when SSO is enabled,
         # but it's used by the "load examples" optional script.
         ("SUPERSET_ADMIN_USERNAME", "admin"),
-        ("SUPERSET_LOAD_EXAMPLES", 0),
     ]
 )
 
@@ -171,7 +170,6 @@ SUPERSET_DOCKER_COMPOSE_SHARED = """image: apache/superset:{{ SUPERSET_TAG }}
     REDIS_PORT: 6379
     FLASK_ENV: production
     SUPERSET_ENV: production
-    SUPERSET_LOAD_EXAMPLES: {{ SUPERSET_LOAD_EXAMPLES }}
     SUPERSET_PORT: {{ SUPERSET_PORT }}
     ADMIN_USERNAME: {{ SUPERSET_ADMIN_USERNAME }}
     ADMIN_PASSWORD: {{ SUPERSET_ADMIN_PASSWORD }}
