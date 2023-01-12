@@ -26,7 +26,7 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         ("SUPERSET_DB_PORT", "5432"),
         ("SUPERSET_DB_NAME", "superset"),
         ("SUPERSET_DB_USERNAME", "superset"),
-        ("SUPERSET_OAUTH2_BASE_URL", "{% if ENABLE_HTTPS %}https{% else %}http{% endif %}://{{ LMS_HOST }}:8000"),
+        ("SUPERSET_OAUTH2_BASE_URL", "{% if ENABLE_HTTPS %}https{% else %}http{% endif %}://{{ LMS_HOST }}"),
         ("SUPERSET_OAUTH2_ACCESS_TOKEN_URL", "{{ SUPERSET_OAUTH2_BASE_URL }}/oauth2/access_token/"),
         ("SUPERSET_OAUTH2_AUTHORIZE_URL", "{{ SUPERSET_OAUTH2_BASE_URL }}/oauth2/authorize/"),
         ("SUPERSET_OPENEDX_USERNAME_URL", "{{ SUPERSET_OAUTH2_BASE_URL }}/api/user/v1/me"),
