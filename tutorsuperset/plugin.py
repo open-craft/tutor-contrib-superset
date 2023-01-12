@@ -69,15 +69,29 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
 # INITIALIZATION TASKS
 ########################################
 
-# To run the script from templates/superset/tasks/myservice/init, add:
-hooks.Filters.COMMANDS_INIT.add_item((
-    "superset",
-    ("superset", "tasks", "init-superset.sh"),
-));
-hooks.Filters.COMMANDS_INIT.add_item((
-    "lms",
-    ("superset", "tasks", "init-openedx.sh"),
-))
+# To add a custom initialization task, create a bash script template under:
+# tutorsuperset/templates/superset/jobs/init/
+# and then add it to the MY_INIT_TASKS list. Each task is in the format:
+# ("<service>", ("<path>", "<to>", "<script>", "<template>"))
+MY_INIT_TASKS = [
+    # For example, to add LMS initialization steps, you could add the script template at:
+    # tutorsuperset/templates/superset/jobs/init/lms.sh
+    # And then add the line:
+    ### ("lms", ("superset", "jobs", "init", "lms.sh")),
+    ("superset", ("superset", "jobs", "init", "init-superset.sh")),
+    ("lms", ("superset", "jobs", "init", "init-openedx.sh")),
+]
+
+# For each task added to MY_INIT_TASKS, we load the task template
+# and add it to the CLI_DO_INIT_TASKS filter, which tells Tutor to
+# run it as part of the `init` job.
+for service, template_path in MY_INIT_TASKS:
+    full_path: str = pkg_resources.resource_filename(
+        "tutorsuperset", os.path.join("templates", *template_path)
+    )
+    with open(full_path, encoding="utf-8") as init_task_file:
+        init_task: str = init_task_file.read()
+    hooks.Filters.CLI_DO_INIT_TASKS.add_item((service, init_task))
 
 
 ########################################

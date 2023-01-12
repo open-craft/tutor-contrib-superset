@@ -18,8 +18,7 @@ Usage
     tutor config save
 
     # Set up SSO with Open edX
-    # (only needed if you enabled this plugin _after_ running `tutor quickstart`)
-    tutor [dev|local] init
+    tutor [dev|local] do init --limit superset
 
 
 Connect to Superset's UI on the configured port (default is `:8088`):
